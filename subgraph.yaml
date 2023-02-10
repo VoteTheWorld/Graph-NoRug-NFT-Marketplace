@@ -1,0 +1,45 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NoRug_marketplace
+    network: goerli
+    source:
+      address: "0x9920eE0c6A0afD2aE171AA61051E2a37289bD689"
+      abi: NoRug_marketplace
+      startBlock: 8464587
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ItemBrought
+        - ItemCanceled
+        - ItemListed
+        - ItemRefunded
+        - PublicBrought
+        - PublicCanceled
+        - PublicItemListed
+        - WithdrawSucceed
+      abis:
+        - name: NoRug_marketplace
+          file: ./abis/NoRug_marketplace.json
+      eventHandlers:
+        - event: ItemBrought(indexed address,indexed address,indexed uint256,uint256)
+          handler: handleItemBrought
+        - event: ItemCanceled(indexed address,indexed address,indexed uint256)
+          handler: handleItemCanceled
+        - event: ItemListed(indexed address,indexed address,indexed uint256,uint256)
+          handler: handleItemListed
+        - event: ItemRefunded(indexed address,indexed address,indexed uint256,uint256)
+          handler: handleItemRefunded
+        - event: PublicBrought(indexed address,indexed address,indexed uint256)
+          handler: handlePublicBrought
+        - event: PublicCanceled(indexed address,indexed address)
+          handler: handlePublicCanceled
+        - event: PublicItemListed(indexed address,indexed address,indexed uint256,uint256)
+          handler: handlePublicItemListed
+        - event: WithdrawSucceed(indexed address,indexed uint256)
+          handler: handleWithdrawSucceed
+      file: ./src/no-rug-marketplace.ts

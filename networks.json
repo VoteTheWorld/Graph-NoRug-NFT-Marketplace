@@ -1,0 +1,8 @@
+{
+  "goerli": {
+    "NoRug_marketplace": {
+      "address": "0x9920eE0c6A0afD2aE171AA61051E2a37289bD689",
+      "startBlock": 8464588
+    }
+  }
+}
