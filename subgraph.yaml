@@ -6,7 +6,7 @@ dataSources:
     name: NoRug_marketplace
     network: goerli
     source:
-      address: "0x9920eE0c6A0afD2aE171AA61051E2a37289bD689"
+      address: "0xec3112269e3092cBAcF176e877e7DC963272a910"
       abi: NoRug_marketplace
       startBlock: 8464587
     mapping:

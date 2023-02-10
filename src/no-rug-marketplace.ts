@@ -41,7 +41,7 @@ export function handleItemBrought(event: ItemBroughtEvent): void {
 
   ActiveItemEntity!.buyer = event.params.buyer;
 
-  itemBrought!.save();
+  itemBrought.save();
   ActiveItemEntity!.save();
 }
 
@@ -137,6 +137,7 @@ export function handlePublicBrought(event: PublicBroughtEvent): void {
   publicBrought.buyer = event.params.buyer;
   publicBrought.nftAddress = event.params.nftAddress;
   publicBrought.price = event.params.price;
+  publicBrought.transactionHash = event.transaction.hash;
   publicBrought.save();
 }
 
@@ -155,7 +156,7 @@ export function handlePublicCanceled(event: PublicCanceledEvent): void {
   }
   if(publicActiveItem){
     publicActiveItem.status = "Null";
-    publicActiveItem!.save();
+    publicActiveItem.save();
   } 
   publicCanceled.seller = event.params.seller;
   publicCanceled.nftAddress = event.params.nftAddress;
@@ -167,18 +168,18 @@ export function handlePublicItemListed(event: PublicItemListedEvent): void {
   let publicItemListed = PublicItemListed.load(
     getIdFromSalesCounter(event.params.publicSaleCounter)
   );
-  let publicActiveItem = PublicActiveItem.load(
-    getIdFromAddressParams(event.params.nftAddress)
-  );
-
   if (!publicItemListed) {
     publicItemListed = new PublicItemListed(
       getIdFromSalesCounter(event.params.publicSaleCounter)
     );
   }
+
+  let publicActiveItem = PublicActiveItem.load(
+    getIdFromAddressParams(event.params.nftAddress)
+  );
   if (!publicActiveItem) {
     publicActiveItem = new PublicActiveItem(
-      getIdFromSalesCounter(event.params.publicSaleCounter)
+      getIdFromAddressParams(event.params.nftAddress)
     );
   }
 
